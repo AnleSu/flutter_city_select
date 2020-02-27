@@ -1,0 +1,61 @@
+{
+  "cityList": [
+    {
+      "firstEnName": "B",
+      "cityId": "35",
+      "cityName": "北京市"
+    },
+    {
+      "firstEnName": "T",
+      "cityId": "36",
+      "cityName": "天津市"
+    },
+    {
+      "firstEnName": "S",
+      "cityId": "72",
+      "cityName": "沈阳市"
+    },
+    {
+      "firstEnName": "D",
+      "cityId": "73",
+      "cityName": "大连市"
+    },
+    {
+      "firstEnName": "Q",
+      "cityId": "74",
+      "cityName": "七台河"
+    },
+    {
+      "firstEnName": "F",
+      "cityId": "104",
+      "cityName": "福州市"
+    },
+    {
+      "firstEnName": "X",
+      "cityId": "107",
+      "cityName": "厦门市"
+    },
+    {
+      "firstEnName": "Z",
+      "cityId": "108",
+      "cityName": "漳州市"
+    },
+    {
+      "firstEnName": "H",
+      "cityId": "109",
+      "cityName": "海口市"
+    },
+    {
+      "firstEnName": "N",
+      "cityId": "110",
+      "cityName": "内蒙古"
+    }
+
+  ]
+}
+
+
+
+
+
+
