@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/select_area_page.dart';
 import 'pages/select_city_page.dart';
-
+import 'pages/select_area_page.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //    });
     Navigator.push(context, MaterialPageRoute(builder: (context) {
 
-      return SelectCityPage();
+      return SelectAreaPage();
     }));
 
   }

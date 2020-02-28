@@ -263,15 +263,16 @@ class _CityListState extends State<CityList> {
                     SizedBox(
                       height: widget.itemHeight.toDouble(),
                       child: ListTile(
-                        trailing: model.cityId == widget.selectedCity.cityId ?
+                        trailing:
+                        model.cityId == widget.selectedCity.cityId ?
                             Padding(
-
                               child: Image.asset('assets/image/2.0x/opz_newtask_choosed.png',
                                 width: 16,
                                 height: 16,
                               ),
                               padding: EdgeInsets.only(right: 30),
-                            ) : Container(),
+                            ) :
+                        Container(width: 10,),
                         title: Text(model.cityName,
                             style: model.cityId == widget.selectedCity.cityId
                                 ? widget.itemTextSelectStyle
