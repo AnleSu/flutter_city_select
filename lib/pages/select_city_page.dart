@@ -76,6 +76,7 @@ class _SelectCityPageState extends State<SelectCityPage> {
               flex: 1,
               child: CityList(
                 data: _cityList,
+                selectedCity: CityListModel(cityId: "35"),
               ),
             ),
           ],
