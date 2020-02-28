@@ -54,8 +54,15 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
       body: Container(
         child: Row(
           children: <Widget>[
-            LeftCategoryNav(),
-            RightDeptList(),
+            LeftCategoryNav(
+              callback: (index) {
+                print(index);
+              },
+
+            ),
+            RightDeptList(callback: (index) {
+              print(index);
+            },),
           ],
         ),
       ),
@@ -65,7 +72,8 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
 
 //左侧导航
 class LeftCategoryNav extends StatefulWidget {
-  LeftCategoryNav({Key key}) : super(key: key);
+  LeftCategoryNav({Key key, this.callback}) : super(key: key);
+  final Function callback;
 
   @override
   _LeftCategoryNavState createState() => _LeftCategoryNavState();
@@ -85,7 +93,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
     return Container(
       width: 130,
       decoration: BoxDecoration(
-        color: Color(0xFFF7F7F7)
+          color: Color(0xFFF7F7F7)
 //          border: Border(right: BorderSide(width: 1, color: Colors.black12))
       ),
       child: ListView.builder(
@@ -102,7 +110,9 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
     bool isClick = false;
     isClick = (index == listIndex);
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        widget.callback(index);
+      },
       child: Container(
         height: 50,
         padding: EdgeInsets.only(left: 15, top: 15),
@@ -124,9 +134,10 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
 
 class RightDeptList extends StatelessWidget {
   final String choosedDeptId;
-  List<DeptList> list = [];
+  final List<DeptList> list;
+  final Function callback;
 
-  RightDeptList({this.choosedDeptId});
+  RightDeptList({this.choosedDeptId, this.callback, this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +147,7 @@ class RightDeptList extends StatelessWidget {
         width: 245,
         decoration: BoxDecoration(
             border: Border(right: BorderSide(width: 1, color: Colors.black12)),
-          color: Colors.white
+            color: Colors.white
         ),
 
         child: ListView.builder(
@@ -155,7 +166,9 @@ class RightDeptList extends StatelessWidget {
     bool isClick = false;
 //    isClick = (list[index].deptId == this.choosedDeptId);
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        this.callback(index);
+      },
       child: Container(
         height: 50,
         padding: EdgeInsets.only(left: 20,),
@@ -166,16 +179,16 @@ class RightDeptList extends StatelessWidget {
         child: ListTile(
           trailing: isClick
               ? Padding(
-                  child: Image.asset(
-                    'assets/image/2.0x/opz_newtask_choosed.png',
-                    width: 16,
-                    height: 16,
-                  ),
-                  padding: EdgeInsets.only(right: 15),
-                )
+            child: Image.asset(
+              'assets/image/2.0x/opz_newtask_choosed.png',
+              width: 16,
+              height: 16,
+            ),
+            padding: EdgeInsets.only(right: 15),
+          )
               : Container(
-                  width: 10,
-                ),
+            width: 10,
+          ),
           title: Text(
             '灯市口区域①店',
             style: TextStyle(
