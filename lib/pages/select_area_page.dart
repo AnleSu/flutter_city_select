@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../widgets/navigator_bar.dart';
@@ -11,12 +10,12 @@ class SelectAreaPage extends StatefulWidget {
 }
 
 class _SelectAreaPageState extends State<SelectAreaPage> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +23,6 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
         titleWidget: InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-
               return SelectCityPage();
             }));
           },
@@ -36,17 +34,30 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
                 '北京市',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-
                     fontSize: 16,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
-              Container(width: 6,),
-              Image.asset('assets/image/2.0x/opz_btn_nav_issue_list_store_arrow.png',width: 20,height: 20,)
+              Container(
+                width: 6,
+              ),
+              Image.asset(
+                'assets/image/2.0x/opz_btn_nav_issue_list_store_arrow.png',
+                width: 20,
+                height: 20,
+              )
             ],
           ),
         ),
         title: 'jsjfklajsdiofja',
+      ),
+      body: Container(
+        child: Row(
+          children: <Widget>[
+            LeftCategoryNav(),
+            RightDeptList(),
+          ],
+        ),
       ),
     );
   }
@@ -74,9 +85,12 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
     return Container(
       width: 130,
       decoration: BoxDecoration(
-          border: Border(right: BorderSide(width: 1, color: Colors.black12))),
+        color: Color(0xFFF7F7F7)
+//          border: Border(right: BorderSide(width: 1, color: Colors.black12))
+      ),
       child: ListView.builder(
-        itemCount: list.length,
+//        itemCount: list.length,
+        itemCount: 4,
         itemBuilder: (BuildContext context, int index) {
           return _leftInkWell(index);
         },
@@ -88,62 +102,87 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
     bool isClick = false;
     isClick = (index == listIndex);
     return InkWell(
-      onTap: () {
-//        var childList = list[index].bxMallSubDto;
-//        var categoryId = list[index].mallCategoryId;
-//
-//        Provide.value<ChildCategory>(context)
-//            .getChildCategory(childList, categoryId);
-//        setState(() {
-//          listIndex = index;
-//        });
-//
-//        _getGoodsList(categoryId: categoryId);
-      },
+      onTap: () {},
       child: Container(
         height: 50,
         padding: EdgeInsets.only(left: 15, top: 15),
         decoration: BoxDecoration(
           color: isClick ? Colors.white : Color(0xFFF7F7F7),
-          border: Border(bottom: BorderSide(width: 1, color: Colors.black12)),
+          border: Border(bottom: BorderSide(width: 0.5, color: Colors.black12)),
         ),
         child: Text(
-          list[index].deptName,
-          style: TextStyle(fontSize: 14, color: isClick ? Color(0xFF333333) : Color(0xFF666666)),
+//          list[index].deptName,
+          '北京租车管理部',
+          style: TextStyle(
+              fontSize: 14,
+              color: isClick ? Color(0xFF333333) : Color(0xFF666666)),
         ),
       ),
     );
   }
+}
 
-//  void _getCategory() async {
-//    await request('getCategory').then((val) {
-//      var data = json.decode(val.toString());
-//      CategoryModel category = CategoryModel.fromJson(data);
-//      // list.data.forEach((item) => print('${item.mallCategoryName}'));
-//      setState(() {
-//        list = category.data;
-//      });
-//      //默认选中第一个
-//      Provide.value<ChildCategory>(context)
-//          .getChildCategory(list[0].bxMallSubDto, list[0].mallCategoryId);
-//      //先请求category 然后用第一个categoryId 请求goodsList
-//      _getGoodsList();
-//    });
-//  }
-//
-//  void _getGoodsList({String categoryId, String categorySubId}) async {
-//    var data = {
-//      'categoryId':
-//          Provide.value<ChildCategory>(context).selectCategoryId == null
-//              ? '4'
-//              : categoryId,
-//      'categorySubId': categorySubId,
-//      'page': 1
-//    };
-//    await request('getMallGoods', formData: data).then((val) {
-//      var response = json.decode(val.toString());
-//      CategoryGoodsListModel model = CategoryGoodsListModel.fromJson(response);
-//      Provide.value<CategoryGoodsListProvide>(context).getGoodsList(model.data);
-//    });
-//  }
+class RightDeptList extends StatelessWidget {
+  final String choosedDeptId;
+  List<DeptList> list = [];
+
+  RightDeptList({this.choosedDeptId});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Expanded(
+      child: Container(
+        width: 245,
+        decoration: BoxDecoration(
+            border: Border(right: BorderSide(width: 1, color: Colors.black12)),
+          color: Colors.white
+        ),
+
+        child: ListView.builder(
+//        itemCount: list.length,
+          itemCount: 8,
+          itemBuilder: (BuildContext context, int index) {
+            return _rightInkWell(index);
+          },
+        ),
+      ),
+    );
+    ;
+  }
+
+  Widget _rightInkWell(index) {
+    bool isClick = false;
+//    isClick = (list[index].deptId == this.choosedDeptId);
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        height: 50,
+        padding: EdgeInsets.only(left: 20,),
+        decoration: BoxDecoration(
+          color: Colors.white,
+//          border: Border(bottom: BorderSide(width: 1, color: Colors.black12)),
+        ),
+        child: ListTile(
+          trailing: isClick
+              ? Padding(
+                  child: Image.asset(
+                    'assets/image/2.0x/opz_newtask_choosed.png',
+                    width: 16,
+                    height: 16,
+                  ),
+                  padding: EdgeInsets.only(right: 15),
+                )
+              : Container(
+                  width: 10,
+                ),
+          title: Text(
+            '灯市口区域①店',
+            style: TextStyle(
+                color: isClick ? Color(0xFFFEAB00) : Color(0xFF333333)),
+          ),
+        ),
+      ),
+    );
+  }
 }
