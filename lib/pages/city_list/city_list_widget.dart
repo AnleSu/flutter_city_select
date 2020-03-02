@@ -13,6 +13,8 @@ typedef Widget IndexBarBuilder(
 
 typedef Widget IndexHintBuilder(BuildContext context, String hint);
 
+typedef CitySelectedCallback = void Function(CityListModel cityListModel);
+
 class CityListViewHeader {
   CityListViewHeader({
     @required this.height,
@@ -58,6 +60,8 @@ class CityList extends StatefulWidget {
 
   final TextStyle itemTextSelectStyle;
 
+  CitySelectedCallback onSelectedCity;
+
   CityList(
       {Key key,
       this.data,
@@ -73,6 +77,7 @@ class CityList extends StatefulWidget {
       this.itemHeight = 50,
       this.header,
       this.selectedCity,
+      this.onSelectedCity,
       this.itemTextStyle =
           const TextStyle(fontSize: 14, color: Color(0xFF333333)),
       this.itemTextSelectStyle =
@@ -263,23 +268,25 @@ class _CityListState extends State<CityList> {
                     SizedBox(
                       height: widget.itemHeight.toDouble(),
                       child: ListTile(
-                        trailing:
-                        model.cityId == widget.selectedCity.cityId ?
-                            Padding(
-                              child: Image.asset('assets/image/2.0x/opz_newtask_choosed.png',
-                                width: 16,
-                                height: 16,
+                        trailing: model.cityId == widget.selectedCity.cityId
+                            ? Padding(
+                                child: Image.asset(
+                                  'assets/image/2.0x/opz_newtask_choosed.png',
+                                  width: 16,
+                                  height: 16,
+                                ),
+                                padding: EdgeInsets.only(right: 30),
+                              )
+                            : Container(
+                                width: 10,
                               ),
-                              padding: EdgeInsets.only(right: 30),
-                            ) :
-                        Container(width: 10,),
                         title: Text(model.cityName,
                             style: model.cityId == widget.selectedCity.cityId
                                 ? widget.itemTextSelectStyle
                                 : widget.itemTextStyle),
                         onTap: () {
                           print("OnItemClick: $model");
-                          Navigator.pop(context, model);
+                          widget.onSelectedCity(model);
                         },
                       ),
                     )

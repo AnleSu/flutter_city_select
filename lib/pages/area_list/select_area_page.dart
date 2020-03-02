@@ -1,15 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widgets/navigator_bar.dart';
-import 'area_list/area_list_model.dart';
-import 'select_city_page.dart';
+import '../../widgets/navigator_bar.dart';
+import 'area_list_model.dart';
+import '../city_list/select_city_page.dart';
+import '../home_tabbar/home_page.dart';
+
+typedef AreaSelectedCallback = void Function(DeptList deptList);
 
 class SelectAreaPage extends StatefulWidget {
+  AreaSelectedCallback callback;
+
+  SelectAreaPage({this.callback});
+
   @override
   _SelectAreaPageState createState() => _SelectAreaPageState();
 }
 
 class _SelectAreaPageState extends State<SelectAreaPage> {
+  String cityName = '北京市';
+
   @override
   void initState() {
     // TODO: implement initState
@@ -23,7 +32,13 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
         titleWidget: InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return SelectCityPage();
+              return SelectCityPage(
+                callback: (selectedCityName) {
+                  setState(() {
+                    cityName = selectedCityName;
+                  });
+                },
+              );
             }));
           },
           child: Row(
@@ -31,7 +46,7 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                '北京市',
+                cityName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16,
@@ -58,11 +73,19 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
               callback: (index) {
                 print(index);
               },
-
             ),
-            RightDeptList(callback: (index) {
-              print(index);
-            },),
+            RightDeptList(
+              callback: (index) {
+//                widget.callback(deptlist);
+                print('area right selected index is ' + index.toString());
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return HomePage(
+
+                  );
+                }));
+
+              },
+            ),
           ],
         ),
       ),
@@ -72,8 +95,10 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
 
 //左侧导航
 class LeftCategoryNav extends StatefulWidget {
-  LeftCategoryNav({Key key, this.callback}) : super(key: key);
   final Function callback;
+
+  LeftCategoryNav({Key key, this.callback}) : super(key: key);
+
 
   @override
   _LeftCategoryNavState createState() => _LeftCategoryNavState();
@@ -92,10 +117,9 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   Widget build(BuildContext context) {
     return Container(
       width: 130,
-      decoration: BoxDecoration(
-          color: Color(0xFFF7F7F7)
+      decoration: BoxDecoration(color: Color(0xFFF7F7F7)
 //          border: Border(right: BorderSide(width: 1, color: Colors.black12))
-      ),
+          ),
       child: ListView.builder(
 //        itemCount: list.length,
         itemCount: 4,
@@ -141,15 +165,54 @@ class RightDeptList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Widget _rightInkWell(index) {
+      bool isClick = false;
+//    isClick = (list[index].deptId == this.choosedDeptId);
+      return InkWell(
+        onTap: () {
+          this.callback(index);
+
+        },
+        child: Container(
+          height: 50,
+          padding: EdgeInsets.only(
+            left: 20,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+//          border: Border(bottom: BorderSide(width: 1, color: Colors.black12)),
+          ),
+          child: ListTile(
+            trailing: isClick
+                ? Padding(
+              child: Image.asset(
+                'assets/image/2.0x/opz_newtask_choosed.png',
+                width: 16,
+                height: 16,
+              ),
+              padding: EdgeInsets.only(right: 15),
+            )
+                : Container(
+              width: 10,
+            ),
+            title: Text(
+              '灯市口区域①店',
+              style: TextStyle(
+                  color: isClick ? Color(0xFFFEAB00) : Color(0xFF333333)),
+            ),
+          ),
+        ),
+      );
+    }
+
     // TODO: implement build
     return Expanded(
       child: Container(
         width: 245,
         decoration: BoxDecoration(
             border: Border(right: BorderSide(width: 1, color: Colors.black12)),
-            color: Colors.white
-        ),
-
+            color: Colors.white),
         child: ListView.builder(
 //        itemCount: list.length,
           itemCount: 8,
@@ -162,40 +225,5 @@ class RightDeptList extends StatelessWidget {
     ;
   }
 
-  Widget _rightInkWell(index) {
-    bool isClick = false;
-//    isClick = (list[index].deptId == this.choosedDeptId);
-    return InkWell(
-      onTap: () {
-        this.callback(index);
-      },
-      child: Container(
-        height: 50,
-        padding: EdgeInsets.only(left: 20,),
-        decoration: BoxDecoration(
-          color: Colors.white,
-//          border: Border(bottom: BorderSide(width: 1, color: Colors.black12)),
-        ),
-        child: ListTile(
-          trailing: isClick
-              ? Padding(
-            child: Image.asset(
-              'assets/image/2.0x/opz_newtask_choosed.png',
-              width: 16,
-              height: 16,
-            ),
-            padding: EdgeInsets.only(right: 15),
-          )
-              : Container(
-            width: 10,
-          ),
-          title: Text(
-            '灯市口区域①店',
-            style: TextStyle(
-                color: isClick ? Color(0xFFFEAB00) : Color(0xFF333333)),
-          ),
-        ),
-      ),
-    );
-  }
+
 }

@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import '../widgets/navigator_bar.dart';
-import 'city_list/city_list_model.dart';
+import '../../widgets/navigator_bar.dart';
+import 'city_list_model.dart';
 import 'package:flutter/services.dart';
-import 'city_list/city_list_widget.dart';
+import 'city_list_widget.dart';
+import 'city_list_model.dart';
 
-import 'package:lpinyin/lpinyin.dart';
 
 class SelectCityPage extends StatefulWidget {
+  final Function callback;
+
+  SelectCityPage({this.callback});
   @override
   _SelectCityPageState createState() => _SelectCityPageState();
 }
@@ -77,6 +80,11 @@ class _SelectCityPageState extends State<SelectCityPage> {
               child: CityList(
                 data: _cityList,
                 selectedCity: CityListModel(cityId: "35"),
+                onSelectedCity: (CityListModel model) {
+                  print('select city name is ' + model.cityName);
+                  widget.callback(model.cityName);
+                  Navigator.of(context).pop();
+                },
               ),
             ),
           ],
