@@ -64,7 +64,6 @@ class _SelectAreaPageState extends State<SelectAreaPage> {
             ],
           ),
         ),
-        title: 'jsjfklajsdiofja',
       ),
       body: Container(
         child: Row(

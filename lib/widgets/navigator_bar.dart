@@ -12,6 +12,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Color backgroundColor;
   final String backImgName;
   final bool isBack;
+  final Widget leading;
   MyAppBar({
     this.bottom,
     this.title,
@@ -22,6 +23,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.backImgName,
     this.isBack: true,
     this.titleWidget,
+    this.leading,
   });
   @override
   _MyAppBarState createState() => _MyAppBarState();
@@ -44,8 +46,8 @@ class _MyAppBarState extends State<MyAppBar> {
           fontWeight: FontWeight.bold,
         ),
       ),
-
-      leading: widget.isBack ? FlatButton(
+      automaticallyImplyLeading: false,//当leading为null是 leading的位置给title使用  不设置 左边间隙较大
+      leading: (widget.isBack ? FlatButton(
         child: Image(
           image: new AssetImage(widget.backImgName ?? 'resources/base_navi_back.png'),
           width: 9,
@@ -54,7 +56,7 @@ class _MyAppBarState extends State<MyAppBar> {
         onPressed: () {
           Navigator.maybePop(context);
         },
-      ) : null,
+      ) : null),
       backgroundColor: widget.backgroundColor ?? Colors.white,
       elevation: 0,
 
