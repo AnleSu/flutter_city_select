@@ -63,6 +63,13 @@ flutter:
     - assets/image/opz_btn_nav_issue_list_new.png
     - assets/image/opz_btn_nav_issue_list_search.png
     - assets/image/opp_btn_navi_back.png
+    - assets/image/opz_btn_issue_list_menu_auto_accept.png
+    - assets/image/opz_btn_issue_list_menu_create_task.png
+    - assets/image/opz_icon_issue_list_employee.png
+    - assets/image/opz_icon_issue_list_license_plate.png
+    - assets/image/opz_icon_issue_list_store.png
+    - assets/image/opz_icon_issue_list_time.png
+    - assets/image/opz_icon_issue_list_arrow.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
