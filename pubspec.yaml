@@ -62,6 +62,7 @@ flutter:
     - assets/image/opz_btn_nav_issue_list_message_normal.png
     - assets/image/opz_btn_nav_issue_list_new.png
     - assets/image/opz_btn_nav_issue_list_search.png
+    - assets/image/opp_btn_navi_back.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

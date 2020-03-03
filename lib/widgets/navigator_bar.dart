@@ -49,7 +49,7 @@ class _MyAppBarState extends State<MyAppBar> {
       automaticallyImplyLeading: false,//当leading为null是 leading的位置给title使用  不设置 左边间隙较大
       leading: (widget.isBack ? FlatButton(
         child: Image(
-          image: new AssetImage(widget.backImgName ?? 'resources/base_navi_back.png'),
+          image: new AssetImage(widget.backImgName ?? 'assets/image/opp_btn_navi_back.png'),
           width: 9,
           height: 15,
         ),
