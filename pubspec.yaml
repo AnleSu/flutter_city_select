@@ -24,6 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flustars: ^0.2.6+1
+  dio:
   flutter_packages:
     #    git:
     #      url: 'http://gitlab.10101111.com:8888/ucar-cross-platform/flutter_packages.git'
@@ -70,6 +71,16 @@ flutter:
     - assets/image/opz_icon_issue_list_store.png
     - assets/image/opz_icon_issue_list_time.png
     - assets/image/opz_icon_issue_list_arrow.png
+    - assets/Login/opp_btn_show_pwd_normal.png
+    - assets/Login/opp_btn_show_pwd_selected.png
+    - assets/Login/opp_icon_input_validate_title.png
+    - assets/Login/opp_icon_validate_phone_text_field.png
+    - assets/Login/opp_icon_validate_phone_title.png
+    - assets/Login/login_account_icon.png
+    - assets/Login/login_password_icon.png
+    - assets/Login/opp_icon_set_new_phone.png
+    - assets/Login/opp_icon_validate_code.png
+    - assets/Login/opp_icon_login_title.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

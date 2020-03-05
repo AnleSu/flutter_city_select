@@ -3,6 +3,7 @@ import 'pages/area_list/select_area_page.dart';
 import 'pages/area_list/select_area_page.dart';
 import 'pages/home_tabbar/home_page.dart';
 import 'pages/area_list/area_list_model.dart';
+import 'pages/login/login_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -39,9 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
 
-      return SelectAreaPage(callback: (DeptList deptList) {
-       print(deptList.deptName);
-      },);
+      return LoginPage();
     }));
 
   }
