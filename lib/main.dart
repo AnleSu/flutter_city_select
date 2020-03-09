@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'pages/area_list/select_area_page.dart';
 import 'pages/area_list/select_area_page.dart';
 import 'pages/home_tabbar/home_page.dart';
 import 'pages/area_list/area_list_model.dart';
 import 'pages/login/login_page.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,6 +47,21 @@ class _MyHomePageState extends State<MyHomePage> {
     }));
 
   }
+
+  _getDocumentsDirectory() async {
+    Directory fileDirectory = await getApplicationDocumentsDirectory();
+    String filePath = fileDirectory.path;
+    print("documents directory is " + filePath);
+    return filePath;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getDocumentsDirectory();
+  }
+
 
   @override
   Widget build(BuildContext context) {

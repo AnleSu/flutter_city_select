@@ -10,6 +10,13 @@ class OrderListPage extends StatefulWidget {
 
 class _OrderListPageState extends State<OrderListPage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getHomePageContent();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container();
   }
@@ -17,17 +24,15 @@ class _OrderListPageState extends State<OrderListPage> {
 
   Future getHomePageContent() async {
     try {
-      print('开始获取首页主题内容');
+      print('开始获取友盟数据');
       Response response;
       Dio dio = new Dio();
 //      dio.options.contentType =
 //          ContentType.parse('application/x-www-form-urlencoded');
-      var formData = {
-        'lon': '115.02932',
-        'lat': '35.78189',
-      };
-      response = await dio.post('', data: formData);
+
+      response = await dio.post('http://localhost:8080/api/hello?name=suanle');
       if (response.statusCode == 200) {
+        print(response.data);
         return response.data;
       } else {
         throw Exception('throw exception');

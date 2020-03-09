@@ -100,89 +100,101 @@ class _IssueListPageState extends State<IssueListPage> {
       initialIndex: 0,
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Column(
-          children: <Widget>[
-            new Material(
-              color: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: Row(
-                  children: <Widget>[
-                    new Expanded(
-                        child: new TabBar(
-                      onTap: (index) {
-                        print('tab tap $index');
-                      },
-                      isScrollable: true,
-                      indicatorColor: Color(0xFFFEAB00),
-                      indicatorSize: TabBarIndicatorSize.label,
+        body: Stack(
+          alignment: Alignment.bottomRight,
+          children: <Widget>[ Column(
+            children: <Widget>[
+              new Material(
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Row(
+                    children: <Widget>[
+                      new Expanded(
+                          child: new TabBar(
+                        onTap: (index) {
+                          print('tab tap $index');
+                        },
+                        isScrollable: true,
+                        indicatorColor: Color(0xFFFEAB00),
+                        indicatorSize: TabBarIndicatorSize.label,
 //                          indicatorPadding: EdgeInsets.only(top: 20),
-                      labelColor: Colors.black,
-                      unselectedLabelColor: Color(0xFF666666),
-                      labelStyle: TextStyle(fontSize: 14),
-                      unselectedLabelStyle: TextStyle(fontSize: 14),
-                      tabs: _tabList.asMap().keys.map((index) {
-                        return new Tab(
-                          text: "${_tabList[index]}" +
-                              (_taskNumList[index] == '0'
-                                  ? ''
-                                  : '(${_taskNumList[index]})'),
-                        );
-                      }).toList(),
-                    )),
-                    new Padding(
-                      padding: EdgeInsets.only(right: 15, left: 10),
-                      child: InkWell(
-                        splashColor: Colors.transparent, // 溅墨色（波纹色）
-                        highlightColor: Colors.transparent, // 点击时的背景色（高亮色）
-                        onTap: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: 0.5,
-                              height: 32,
-                              alignment: Alignment.center,
-                              color: Color(0xFFE5E5E5),
-                            ),
-                            Container(
-                              width: 10,
-                            ),
-                            Text(
-                              '我的',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF666666),
+                        labelColor: Colors.black,
+                        unselectedLabelColor: Color(0xFF666666),
+                        labelStyle: TextStyle(fontSize: 14),
+                        unselectedLabelStyle: TextStyle(fontSize: 14),
+                        tabs: _tabList.asMap().keys.map((index) {
+                          return new Tab(
+                            text: "${_tabList[index]}" +
+                                (_taskNumList[index] == '0'
+                                    ? ''
+                                    : '(${_taskNumList[index]})'),
+                          );
+                        }).toList(),
+                      )),
+                      new Padding(
+                        padding: EdgeInsets.only(right: 15, left: 10),
+                        child: InkWell(
+                          splashColor: Colors.transparent, // 溅墨色（波纹色）
+                          highlightColor: Colors.transparent, // 点击时的背景色（高亮色）
+                          onTap: () {},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                width: 0.5,
+                                height: 32,
+                                alignment: Alignment.center,
+                                color: Color(0xFFE5E5E5),
                               ),
-                            ),
-                            Container(
-                              width: 5,
-                            ),
-                            Image.asset(
-                              'assets/image/opz_btn_nav_issue_list_store_arrow.png',
-                              width: 16,
-                              height: 16,
-                            )
-                          ],
+                              Container(
+                                width: 10,
+                              ),
+                              Text(
+                                '我的',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF666666),
+                                ),
+                              ),
+                              Container(
+                                width: 5,
+                              ),
+                              Image.asset(
+                                'assets/image/opz_btn_nav_issue_list_store_arrow.png',
+                                width: 16,
+                                height: 16,
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int index) {
-                  return IssueItemWidget();
-                },
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  itemBuilder: (BuildContext context, int index) {
+                    return IssueItemWidget();
+                  },
+                ),
               ),
+            ],
+          ),
+          InkWell(
+            onTap: () {
+              print('filter');
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 15,bottom: 15),
+              child: Image.asset('assets/image/opz_btn_issue_list_filiter.png'),
             ),
-          ],
-        ),
+          )    
+        ]),
       ),
     );
   }

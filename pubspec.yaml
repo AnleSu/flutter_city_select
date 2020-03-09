@@ -25,6 +25,9 @@ dependencies:
   cupertino_icons: ^0.1.2
   flustars: ^0.2.6+1
   dio:
+  # 数据持久化
+  shared_preferences:
+  path_provider:
   flutter_packages:
     #    git:
     #      url: 'http://gitlab.10101111.com:8888/ucar-cross-platform/flutter_packages.git'
@@ -71,6 +74,7 @@ flutter:
     - assets/image/opz_icon_issue_list_store.png
     - assets/image/opz_icon_issue_list_time.png
     - assets/image/opz_icon_issue_list_arrow.png
+    - assets/image/opz_btn_issue_list_filiter.png
     - assets/Login/opp_btn_show_pwd_normal.png
     - assets/Login/opp_btn_show_pwd_selected.png
     - assets/Login/opp_icon_input_validate_title.png

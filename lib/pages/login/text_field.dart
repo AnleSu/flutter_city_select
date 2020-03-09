@@ -160,10 +160,10 @@ class _MyTextFieldState extends State<MyTextField> {
                 child: InkWell(
                   child: Image.asset(
                     _isShowPwd
-                        ? Utils.getImagePath('opp_btn_show_pwd_normal.png')
-                        : Utils.getImagePath('opp_btn_show_pwd_selected.png'),
-                    width: 18.0,
-                    height: 18.0,
+                        ? Utils.getImagePath('opp_btn_show_pwd_normal')
+                        : Utils.getImagePath('opp_btn_show_pwd_selected'),
+                    width: 24.0,
+                    height: 24.0,
                   ),
                   onTap: () {
                     setState(() {

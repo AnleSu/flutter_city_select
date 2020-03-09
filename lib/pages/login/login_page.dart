@@ -1,7 +1,11 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'text_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'login_model.dart';
+import '../area_list/select_area_page.dart';
+
+const String kUserLoginStatusKey = 'UserLoginStatus';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,12 +15,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  TextEditingController _vcodeController = TextEditingController();
 
   //分别定义两个输入框的焦点 用于切换焦点
   final FocusNode _nodeName = FocusNode();
   final FocusNode _nodePwd = FocusNode();
-  final FocusNode _nodeVCode = FocusNode();
   bool _isClick = false;
 
   @override
@@ -25,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     _nameController.addListener(_verify);
     _passwordController.addListener(_verify);
-    _vcodeController.addListener(_verify);
   }
 
   void _verify() {
@@ -51,8 +52,15 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  _login() {
+  _login() async {
     print('login action');
+    //基本数据类型 持久化
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(kUserLoginStatusKey, true);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return SelectAreaPage();
+    }));
   }
 
   @override
@@ -79,7 +87,10 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Column(children: <Widget>[
-              Container(child: Image.asset('assets/Login/opp_icon_login_title.png'),alignment: Alignment.topLeft,),
+              Container(
+                child: Image.asset('assets/Login/opp_icon_login_title.png'),
+                alignment: Alignment.topLeft,
+              ),
               SizedBox(
                 height: 69,
               ),
@@ -156,7 +167,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: Center(
                 child: Column(
-
                   children: <Widget>[
                     Text(
                       '登录即表示同意',
@@ -168,10 +178,10 @@ class _LoginPageState extends State<LoginPage> {
                     RichText(
                         text: TextSpan(
                             text: '《用户服务协议》',
-                            recognizer: TapGestureRecognizer(
-
-
-    ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print('tap the user protocol');
+                              },
                             style: TextStyle(
                               fontSize: 14,
                               color: Color(0xFF5C7DF6),
@@ -185,12 +195,15 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           TextSpan(
-                            text: '《运营助手隐私政策》',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF5C7DF6),
-                            ),
-                          ),
+                              text: '《运营助手隐私政策》',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF5C7DF6),
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  print('tap the op protocol');
+                                }),
                         ]))
                   ],
                 ),
