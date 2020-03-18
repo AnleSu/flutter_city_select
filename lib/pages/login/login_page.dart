@@ -6,6 +6,7 @@ import 'login_model.dart';
 import '../area_list/select_area_page.dart';
 
 const String kUserLoginStatusKey = 'UserLoginStatus';
+const String kUserLoginNameKey = 'kUserLoginNameKey';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -27,6 +28,23 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     _nameController.addListener(_verify);
     _passwordController.addListener(_verify);
+    _defaultName();
+
+  }
+/*查看本地是否有上一次登录保存的数据*/
+  void _defaultName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.containsKey(kUserLoginNameKey)) {
+      String defaultName = prefs.getString(kUserLoginNameKey);
+      if(defaultName.length > 0) {
+        setState(() {
+          _nameController.text = defaultName;
+        });
+
+      }
+    }
+
+
   }
 
   void _verify() {
@@ -57,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
     //基本数据类型 持久化
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(kUserLoginStatusKey, true);
+    prefs.setString(kUserLoginNameKey, _nameController.text);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return SelectAreaPage();

@@ -13,7 +13,7 @@ class _OrderListPageState extends State<OrderListPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getHomePageContent();
+//    getHomePageContent();
   }
 
   @override

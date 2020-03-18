@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_opapp/pages/issue_list/filter_page/filter_page.dart';
 import '../../widgets/navigator_bar.dart';
 import '../area_list/select_area_page.dart';
 import 'issue_item.dart';
@@ -11,6 +13,7 @@ class IssueListPage extends StatefulWidget {
 class _IssueListPageState extends State<IssueListPage> {
   List<String> _taskNumList = ['145', '7', '14', '0', '0', '0'];
   List<String> _tabList = ['待派发', '待处理', '处理中', '已完成', '已取消', '已终止'];
+
 
   Widget _buildAppBar() {
     return MyAppBar(
@@ -70,7 +73,8 @@ class _IssueListPageState extends State<IssueListPage> {
             ),
             onPressed: () {}),
         PopupMenuButton<String>(
-          offset: Offset(0, 70),//设置菜单弹出的位置
+          offset: Offset(0, 70),
+          //设置菜单弹出的位置
 //              shape: new BeveledRectangleBorder(borderRadius: BorderRadius.circular(20.0),side: new BorderSide(
 //                style: BorderStyle.none,
 //              )),
@@ -92,7 +96,6 @@ class _IssueListPageState extends State<IssueListPage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -100,9 +103,8 @@ class _IssueListPageState extends State<IssueListPage> {
       initialIndex: 0,
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Stack(
-          alignment: Alignment.bottomRight,
-          children: <Widget>[ Column(
+        body: Stack(alignment: Alignment.bottomRight, children: <Widget>[
+          Column(
             children: <Widget>[
               new Material(
                 color: Colors.white,
@@ -135,8 +137,10 @@ class _IssueListPageState extends State<IssueListPage> {
                       new Padding(
                         padding: EdgeInsets.only(right: 15, left: 10),
                         child: InkWell(
-                          splashColor: Colors.transparent, // 溅墨色（波纹色）
-                          highlightColor: Colors.transparent, // 点击时的背景色（高亮色）
+                          splashColor: Colors.transparent,
+                          // 溅墨色（波纹色）
+                          highlightColor: Colors.transparent,
+                          // 点击时的背景色（高亮色）
                           onTap: () {},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -188,17 +192,28 @@ class _IssueListPageState extends State<IssueListPage> {
           InkWell(
             onTap: () {
               print('filter');
+//                _filterController.show();
+              showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return FilterDialog(
+                      filterBuilder: FilterBuilder(
+                          filterWidget: FilterPage(
+
+                          ),
+                          filterWidgetHeight: 600),
+                    );
+                  });
             },
             child: Padding(
-              padding: EdgeInsets.only(right: 15,bottom: 15),
+              padding: EdgeInsets.only(right: 15, bottom: 15),
               child: Image.asset('assets/image/opz_btn_issue_list_filiter.png'),
             ),
-          )    
+          )
         ]),
       ),
     );
   }
-
 
   _getPopupMenu(BuildContext context) {
     return <PopupMenuEntry<String>>[
@@ -206,18 +221,18 @@ class _IssueListPageState extends State<IssueListPage> {
         value: '新建工单',
         child: ListTile(
           title: Text('新建工单'),
-          leading: Image.asset('assets/image/opz_btn_issue_list_menu_create_task.png'),
+          leading: Image.asset(
+              'assets/image/opz_btn_issue_list_menu_create_task.png'),
         ),
       ),
       PopupMenuItem<String>(
         value: '开启自动接单',
         child: ListTile(
           title: Text('开启自动接单'),
-          leading: Image.asset('assets/image/opz_btn_issue_list_menu_auto_accept.png'),
+          leading: Image.asset(
+              'assets/image/opz_btn_issue_list_menu_auto_accept.png'),
         ),
       ),
     ];
   }
-
-
 }
