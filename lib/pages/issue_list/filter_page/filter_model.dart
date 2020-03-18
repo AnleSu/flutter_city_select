@@ -17,6 +17,18 @@ enum OPZTaskStatus {
   OPZTaskStatusStoped, // !< 已终止
 }
 
+enum OPZTaskType {
+  OPZTaskTypeAll, // !< 全部
+  OPZTaskTypeWash, // !< 洗车单
+  OPZTaskTypeFuel, // !< 加油单
+  OPZTaskTypeVehicleValid, // !< 验车单
+  OPZTaskTypeScheduling, // !< 调度单
+  OPZTaskTypeeVehicleValidDoubt, // !< 取车有疑义
+  OPZTaskTypeVehicleValidRefuse, // !< 取车不通过
+  OPZTaskTypeUserReportException, // !< 用户上报异常
+  OPZTaskTypeDropOffDeveiceException, // !< 还车设备异常
+}
+
 class FilterModel {
   /*开始创建时间（yyyy-MM-dd）*/
   String createTimeBegin;
@@ -32,11 +44,17 @@ class FilterModel {
 
   /*工单来源，选择全部则无需传：1-订单，2-人工*/
   List<String> taskSrc;
+
   /*工单状态：1-待派发，2-待处理，3-处理中，4-已完成，5-已取消，6-已终止*/
   OPZTaskStatus taskStatus;
 
-
-  FilterModel({this.createTimeBegin, this.createTimeEnd, this.queryType, this.taskSrc, this.taskStatus, this.taskType});
+  FilterModel(
+      {this.createTimeBegin,
+      this.createTimeEnd,
+      this.queryType,
+      this.taskSrc,
+      this.taskStatus,
+      this.taskType});
 
   FilterModel.fromJson(Map<String, dynamic> json) {
     createTimeBegin = json['createTimeBegin'];
@@ -55,6 +73,25 @@ class FilterModel {
     data['taskSrc'] = this.taskSrc;
     data['taskStatus'] = this.taskStatus;
     data['taskType'] = this.taskType;
+    return data;
+  }
+}
+
+class TaskTypeItemModel {
+  OPZTaskType type;
+  String typeString;
+  TaskTypeItemModel({this.type, this.typeString});
+
+  TaskTypeItemModel.fromJson(Map<String, dynamic> json) {
+    type = json["type"];
+    typeString = json['typeString'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
+    data['typeString'] = this.typeString;
+
     return data;
   }
 }
