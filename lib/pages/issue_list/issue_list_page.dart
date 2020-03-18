@@ -201,7 +201,7 @@ class _IssueListPageState extends State<IssueListPage> {
                           filterWidget: FilterPage(
 
                           ),
-                          filterWidgetHeight: 600),
+                          filterWidgetHeight: 618),
                     );
                   });
             },
