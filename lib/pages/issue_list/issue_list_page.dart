@@ -198,7 +198,9 @@ class _IssueListPageState extends State<IssueListPage> {
                   builder: (BuildContext context) {
                     return FilterDialog(
                       filterBuilder: FilterBuilder(
+
                           filterWidget: FilterPage(
+                            filterModel: FilterModel(taskSrc: [OPZTaskSource.OPZTaskSourceAll],taskType: [OPZTaskType.OPZTaskTypeAll]),
                             typeList: [
                               TaskTypeItemModel(OPZTaskType.OPZTaskTypeAll),
                               TaskTypeItemModel(

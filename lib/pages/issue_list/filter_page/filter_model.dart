@@ -46,10 +46,10 @@ class FilterModel {
   OPZTaskQueryType queryType;
 
   /*工单类型，选择全部则无需传：1.洗车单，2-加油单，3-验车单，4-调度单，5-取车有疑义，6-取车不通过，7-用户上报异常，8-还车设备异常*/
-  List<String> taskType;
+  List<OPZTaskType> taskType;
 
   /*工单来源，选择全部则无需传：1-订单，2-人工*/
-  List<String> taskSrc;
+  List<OPZTaskSource> taskSrc;
 
   /*工单状态：1-待派发，2-待处理，3-处理中，4-已完成，5-已取消，6-已终止*/
   OPZTaskStatus taskStatus;

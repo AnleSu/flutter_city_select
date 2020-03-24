@@ -11,10 +11,10 @@ class FilterBuilder {
 }
 
 class FilterDialog extends Dialog {
-  final FilterModel filterModel;
+
   final FilterBuilder filterBuilder;
 
-  FilterDialog({this.filterModel, this.filterBuilder});
+  FilterDialog({this.filterBuilder});
 
   bool _isShowFilter = false;
 
@@ -60,9 +60,10 @@ class FilterDialog extends Dialog {
 }
 
 class FilterPage extends StatefulWidget {
-  final FilterModel filterModel;
+  final FilterModel filterModel;//默认选中的选项
   final List<TaskTypeItemModel> typeList;
   final List<TaskSourceItemModel> soruceList;
+
 
   FilterPage({this.filterModel, this.typeList, this.soruceList});
 
@@ -242,8 +243,20 @@ class _FilterPageState extends State<FilterPage>
               //子组件宽高长度比例
               childAspectRatio: 3.0),
           itemBuilder: (BuildContext context, int index) {
+            bool isSelected = false;
+            if(widget.filterModel.taskType.length > 0) {
+              for(OPZTaskType type in widget.filterModel.taskType) {
+                if(widget.typeList[index].type == type) {
+                  isSelected = true;
+                  break;
+                }
+              }
+
+            }
+
             //Widget Function(BuildContext context, int index)
             return FilterIssueTypeCell(
+              isSelected: isSelected,
               model: widget.typeList[index],
               cellClick: (model) {
                 if(model is TaskTypeItemModel) {
@@ -273,8 +286,21 @@ class _FilterPageState extends State<FilterPage>
               //子组件宽高长度比例
               childAspectRatio: 3.0),
           itemBuilder: (BuildContext context, int index) {
+            bool isSelected = false;
+            if(widget.filterModel.taskSrc.length > 0) {
+              for(OPZTaskSource source in widget.filterModel.taskSrc) {
+                if(source == widget.soruceList[index].type) {
+                  isSelected = true;
+                  break;
+                }
+              }
+
+            }
+
+
             //Widget Function(BuildContext context, int index)
             return FilterIssueTypeCell(
+              isSelected: isSelected,
               sourceItemModel: widget.soruceList[index],
               cellClick: (model) {
                   if (model is TaskSourceItemModel) {
