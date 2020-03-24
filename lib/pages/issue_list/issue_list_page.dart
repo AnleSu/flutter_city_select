@@ -228,9 +228,9 @@ class _IssueListPageState extends State<IssueListPage> {
                     );
                   });
             },
-            child: Padding(
-              padding: EdgeInsets.only(right: 15, bottom: 15),
-              child: Image.asset('assets/image/opz_btn_issue_list_filiter.png'),
+            child: Container(
+              margin: EdgeInsets.only(right: 15, bottom: 15),
+              child: Image.asset('assets/image/opz_btn_issue_list_filiter.png',width: 48,height: 48,),
             ),
           )
         ]),
