@@ -29,6 +29,12 @@ enum OPZTaskType {
   OPZTaskTypeDropOffDeveiceException, // !< 还车设备异常
 }
 
+enum OPZTaskSource {
+  OPZTaskSourceAll, // !< 全部
+  OPZTaskSourceOrder, // !< 订单
+  OPZTaskSourceManual, // !< 人工
+}
+
 class FilterModel {
   /*开始创建时间（yyyy-MM-dd）*/
   String createTimeBegin;
@@ -80,7 +86,8 @@ class FilterModel {
 class TaskTypeItemModel {
   OPZTaskType type;
   String typeString;
-  TaskTypeItemModel({this.type, this.typeString});
+
+//  TaskTypeItemModel({this.type, this.typeString});
 
   TaskTypeItemModel.fromJson(Map<String, dynamic> json) {
     type = json["type"];
@@ -93,5 +100,116 @@ class TaskTypeItemModel {
     data['typeString'] = this.typeString;
 
     return data;
+  }
+
+  TaskTypeItemModel(OPZTaskType newType) {
+    type = newType;
+    typeString = _getStringFromType(newType);
+  }
+
+  String _getStringFromType(OPZTaskType type) {
+    String _typeString;
+    switch (type) {
+      case OPZTaskType.OPZTaskTypeAll:
+        {
+          _typeString = '全部';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeWash:
+        {
+          _typeString = '洗车';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeFuel:
+        {
+          _typeString = '加油';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeVehicleValid:
+        {
+          _typeString = '验车';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeScheduling:
+        {
+          _typeString = '调度';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeeVehicleValidDoubt:
+        {
+          _typeString = '验车有疑义';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeVehicleValidRefuse:
+        {
+          _typeString = '验车不通过';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeUserReportException:
+        {
+          _typeString = '用户上报故障';
+        }
+        break;
+      case OPZTaskType.OPZTaskTypeDropOffDeveiceException:
+        {
+          _typeString = '还车设备异常';
+        }
+        break;
+      default:
+        {}
+        break;
+    }
+    return _typeString;
+  }
+}
+
+
+class TaskSourceItemModel {
+  OPZTaskSource type;
+  String typeString;
+
+
+  TaskSourceItemModel.fromJson(Map<String, dynamic> json) {
+    type = json["type"];
+    typeString = json['typeString'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
+    data['typeString'] = this.typeString;
+
+    return data;
+  }
+
+  TaskSourceItemModel(OPZTaskSource newType) {
+    type = newType;
+    typeString = _getStringFromType(newType);
+  }
+
+  String _getStringFromType(OPZTaskSource type) {
+    String _typeString;
+    switch (type) {
+      case OPZTaskSource.OPZTaskSourceAll:
+        {
+          _typeString = '全部';
+        }
+        break;
+      case OPZTaskSource.OPZTaskSourceManual:
+        {
+          _typeString = '人工';
+        }
+        break;
+      case OPZTaskSource.OPZTaskSourceOrder:
+        {
+          _typeString = '订单';
+        }
+        break;
+
+      default:
+        {}
+        break;
+    }
+    return _typeString;
   }
 }

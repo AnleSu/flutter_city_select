@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_opapp/pages/issue_list/filter_page/filter_issue_type_cell.dart';
 import 'package:flutter_opapp/pages/issue_list/filter_page/filter_model.dart';
 
 class FilterBuilder {
@@ -60,8 +61,11 @@ class FilterDialog extends Dialog {
 
 class FilterPage extends StatefulWidget {
   final FilterModel filterModel;
+  final List<TaskTypeItemModel> typeList;
+  final List<TaskSourceItemModel> soruceList;
 
-  FilterPage({this.filterModel});
+  FilterPage({this.filterModel, this.typeList, this.soruceList});
+
 
   @override
   _FilterPageState createState() => _FilterPageState();
@@ -69,10 +73,14 @@ class FilterPage extends StatefulWidget {
 
 class _FilterPageState extends State<FilterPage>
     with SingleTickerProviderStateMixin {
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+//    widget.typeList.add(TaskTypeItemModel(OPZTaskType.OPZTaskTypeAll));
+
   }
 
   Widget _naviView() {
@@ -137,6 +145,7 @@ class _FilterPageState extends State<FilterPage>
 
   Widget _sectionHeaderView(String sectionTitle) {
     return Container(
+
       margin: EdgeInsets.only(top: 20, left: 15, right: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,7 +198,8 @@ class _FilterPageState extends State<FilterPage>
               ),
             ),
           ),
-          Expanded(//左边重置按钮固定宽度 右边根据屏幕尺寸拉伸
+          Expanded(
+            //左边重置按钮固定宽度 右边根据屏幕尺寸拉伸
             child: Container(
               margin: EdgeInsets.only(left: 10),
 //            width: 205,
@@ -214,6 +224,68 @@ class _FilterPageState extends State<FilterPage>
     );
   }
 
+  Widget _buildTypeSection() {
+    return Padding(
+      padding: EdgeInsets.only(left: 15, right: 15,),
+      child: GridView.builder(
+          padding: EdgeInsets.only(top: 15),
+          shrinkWrap: true,
+          itemCount: widget.typeList.length,
+          //SliverGridDelegateWithFixedCrossAxisCount 构建一个横轴固定数量Widget
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //横轴元素个数
+              crossAxisCount: 3,
+              //纵轴间距
+              mainAxisSpacing: 15.0,
+              //横轴间距
+              crossAxisSpacing: 10.0,
+              //子组件宽高长度比例
+              childAspectRatio: 3.0),
+          itemBuilder: (BuildContext context, int index) {
+            //Widget Function(BuildContext context, int index)
+            return FilterIssueTypeCell(
+              model: widget.typeList[index],
+              cellClick: (model) {
+                if(model is TaskTypeItemModel) {
+
+                }
+              },
+            );
+          }),
+    );
+  }
+
+  Widget _buildSourceSection() {
+    return Padding(
+      padding: EdgeInsets.only(left: 15, right: 15,),
+      child: GridView.builder(
+          padding: EdgeInsets.only(top: 15),
+          shrinkWrap: true,
+          itemCount: widget.soruceList.length,
+          //SliverGridDelegateWithFixedCrossAxisCount 构建一个横轴固定数量Widget
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //横轴元素个数
+              crossAxisCount: 3,
+              //纵轴间距
+              mainAxisSpacing: 15.0,
+              //横轴间距
+              crossAxisSpacing: 10.0,
+              //子组件宽高长度比例
+              childAspectRatio: 3.0),
+          itemBuilder: (BuildContext context, int index) {
+            //Widget Function(BuildContext context, int index)
+            return FilterIssueTypeCell(
+              sourceItemModel: widget.soruceList[index],
+              cellClick: (model) {
+                  if (model is TaskSourceItemModel) {
+
+                  }
+              },
+            );
+          }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -223,20 +295,21 @@ class _FilterPageState extends State<FilterPage>
         color: Colors.white,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            _naviView(),
-            _sectionHeaderView('工单类型'),
-            _sectionHeaderView('工单来源'),
-            _sectionHeaderView('创建时间'),
-
-          ],
-        ),
-        _bottomBar()
-      ]),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                _naviView(),
+                _sectionHeaderView('工单类型'),
+                _buildTypeSection(),
+                _sectionHeaderView('工单来源'),
+                _buildSourceSection(),
+                _sectionHeaderView('创建时间'),
+              ],
+            ),
+            _bottomBar()
+          ]),
     );
   }
 }

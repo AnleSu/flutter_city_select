@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_opapp/pages/issue_list/filter_page/filter_model.dart';
 import 'package:flutter_opapp/pages/issue_list/filter_page/filter_page.dart';
 import '../../widgets/navigator_bar.dart';
 import '../area_list/select_area_page.dart';
@@ -13,7 +14,6 @@ class IssueListPage extends StatefulWidget {
 class _IssueListPageState extends State<IssueListPage> {
   List<String> _taskNumList = ['145', '7', '14', '0', '0', '0'];
   List<String> _tabList = ['待派发', '待处理', '处理中', '已完成', '已取消', '已终止'];
-
 
   Widget _buildAppBar() {
     return MyAppBar(
@@ -199,7 +199,28 @@ class _IssueListPageState extends State<IssueListPage> {
                     return FilterDialog(
                       filterBuilder: FilterBuilder(
                           filterWidget: FilterPage(
-
+                            typeList: [
+                              TaskTypeItemModel(OPZTaskType.OPZTaskTypeAll),
+                              TaskTypeItemModel(
+                                  OPZTaskType.OPZTaskTypeScheduling),
+                              TaskTypeItemModel(OPZTaskType.OPZTaskTypeWash),
+                              TaskTypeItemModel(OPZTaskType.OPZTaskTypeFuel),
+                              TaskTypeItemModel(
+                                  OPZTaskType.OPZTaskTypeVehicleValid),
+                              TaskTypeItemModel(
+                                  OPZTaskType.OPZTaskTypeUserReportException),
+                              TaskTypeItemModel(
+                                  OPZTaskType.OPZTaskTypeeVehicleValidDoubt),
+                              TaskTypeItemModel(
+                                  OPZTaskType.OPZTaskTypeVehicleValidRefuse),
+                              TaskTypeItemModel(OPZTaskType
+                                  .OPZTaskTypeDropOffDeveiceException),
+                            ],
+                            soruceList: [
+                              TaskSourceItemModel(OPZTaskSource.OPZTaskSourceAll),
+                              TaskSourceItemModel(OPZTaskSource.OPZTaskSourceManual),
+                              TaskSourceItemModel(OPZTaskSource.OPZTaskSourceOrder),
+                            ],
                           ),
                           filterWidgetHeight: 618),
                     );
